@@ -2,16 +2,13 @@ ASMC = nasm
 ASMFLAGS = -f bin
 
 SRC = main.asm
-DEST = build/boot.bin
+BIN = boot.bin
 
-all: dirs
-	$(ASMC) $(ASMFLAGS) $(SRC) -o $(DEST)
+all:
+	$(ASMC) $(ASMFLAGS) $(SRC) -o $(BIN)
 
 run: all
-	qemu-system-x86_64 $(DEST)
-
-dirs:
-	mkdir -p $$(dirname $(DEST))
+	qemu-system-x86_64 $(BIN)
 
 clean:
-	-rm -r $$(dirname $(DEST))
+	-rm $(BIN)
