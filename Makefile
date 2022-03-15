@@ -11,12 +11,9 @@ BIN = boot.bin
 SECTOR = 512
 
 all:
-	$(ASMC) $(ASMFLAGS) $(LOADER) -o $(BIN)
 	$(CC) $(CFLAGS) $(SRC) -o a.out
-
-	@# (512 - (size % 512)) are the zeroes necessary to pad to a sector
-	dd if=/dev/zero bs=1 count=$$(($(SECTOR) - ($$(du -b a.out | cut -f 1) % $(SECTOR)))) >> a.out
-
+	$(ASMC) $(ASMFLAGS) $(LOADER) -o $(BIN)
+	truncate -s %512 a.out
 	cat a.out >> $(BIN)
 	rm a.out
 
