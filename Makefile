@@ -12,8 +12,8 @@ SECTOR = 512
 
 all:
 	$(CC) $(CFLAGS) $(SRC) -o a.out
-	$(ASMC) $(ASMFLAGS) $(LOADER) -o $(BIN)
 	truncate -s %512 a.out
+	$(ASMC) $(ASMFLAGS) -D SECTORS_TO_LOAD=$$(($$(du -b a.out | cut -f 1) / $(SECTOR))) $(LOADER) -o $(BIN)
 	cat a.out >> $(BIN)
 	rm a.out
 

@@ -27,7 +27,7 @@ load:
 	mov bx, code	; Address in RAM where to put the loaded sectors
 
 	mov ah, 0x2	; http://www.ctyme.com/intr/rb-0607.htm
-	mov al, 27	; NOTE: These are the sectors that will be read (aka binary size)
+	mov al, SECTORS_TO_LOAD	; NOTE: These are the sectors that will be read (aka binary size)
 
 	; Place on the disk to read from
 	mov ch, 0x0	; Cylinder
