@@ -1,5 +1,6 @@
 ASMC = nasm
 ASMFLAGS = -f bin
+ASMFLAGS += -Isrc
 
 LOADER = boot.asm
 SRC = src/main.asm
