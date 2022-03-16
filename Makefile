@@ -2,7 +2,7 @@ ASMC = nasm
 ASMFLAGS = -f bin
 
 CC = gcc
-CFLAGS = -m16 -nostdlib
+CFLAGS = -m16 -nostdlib -ffreestanding
 
 LOADER = main.asm
 SRC = print.c
