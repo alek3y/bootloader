@@ -1,14 +1,15 @@
 %ifndef IO_PUTCHAR
 %define IO_PUTCHAR
 
-; void putchar(char al)
+; void putchar(char bl)
 ;
 ; Parameters:
-; - al: Character to print to the screen
+; - bl: Character to print to the screen
 putchar:
 	push ax
 
 	mov ah, 0xe
+	mov al, bl
 	int 0x10
 
 	pop ax

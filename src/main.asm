@@ -2,16 +2,15 @@
 [org 0x7c00+512]
 jmp main	; Avoid include files execution
 
-%include "io/putchar.asm"
+%include "io/print.asm"
 
 section .data
-face: db ":)"
+message: db "fugg xDDD", 0
 
 section .text
 main:
-	mov al, [face]
-	call putchar
-	mov al, [face+1]
-	call putchar
+	mov al, 's'
+	mov bx, message
+	call print
 
 	jmp $
