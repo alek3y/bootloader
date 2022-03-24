@@ -8,12 +8,18 @@ BIN = boot.bin
 
 SECTOR = 512
 
-all:
-	$(ASMC) $(ASMFLAGS) $(SRC) -o code.bin
-	truncate -s %$(SECTOR) code.bin	# Rounds to the nearest sector
-	$(ASMC) $(ASMFLAGS) -D SECTORS_TO_LOAD=$$(($$(du -b code.bin | cut -f 1) / $(SECTOR))) $(LOADER) -o $(BIN)
-	cat code.bin >> $(BIN)
-	rm code.bin
+payload := $(shell mktemp)
+
+all: code
+	$(ASMC) $(ASMFLAGS) \
+		-D SECTORS_TO_LOAD=$$(($(shell du -b $(payload) | cut -f 1) / $(SECTOR))) \
+		$(LOADER) -o $(BIN)
+	cat $(payload) >> $(BIN)
+	rm $(payload)
+
+code:
+	$(ASMC) $(ASMFLAGS) $(SRC) -o $(payload)
+	truncate -s %$(SECTOR) $(payload)	# Rounds to the nearest sector
 
 run: all
 	qemu-system-x86_64 $(BIN)
