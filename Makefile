@@ -10,7 +10,11 @@ SECTOR = 512
 
 payload := $(shell mktemp)
 
-all: code
+all: bootloader
+	printf 'holy shid dis fuggin dign :DDDDDD' >> $(BIN)
+	truncate -s %$(SECTOR) $(BIN)
+
+bootloader: code
 	$(ASMC) $(ASMFLAGS) \
 		-D SECTORS_TO_LOAD=$$(($(shell du -b $(payload) | cut -f 1) / $(SECTOR))) \
 		$(LOADER) -o $(BIN)

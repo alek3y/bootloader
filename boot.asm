@@ -38,6 +38,7 @@ load:
 	mov al, SECTORS_TO_LOAD	; NOTE: These are the sectors that will be read (aka binary size)
 	call read
 
+	push SECTORS_TO_LOAD	; Save the read sector count for the code to retrieve it
 	jnc code	; Run when read successfully
 
 ; DEBUG: Print and halt when code couldn't be loaded
